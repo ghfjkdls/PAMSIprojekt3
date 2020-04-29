@@ -46,7 +46,6 @@ matlist graflist::kruskal(){
 
 	for (int i = 0; i < verticles; i++)
 	    parent[i] = i;
-	edgesort();
 	for (i = 0; i < edlist.size(); i++) {
 		helptab=endverticle(i);
 		urep=findset(helptab[0]);
