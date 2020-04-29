@@ -20,11 +20,11 @@ int main(int argc,char **argv){
       sscanf(argv[i],"%f",&dens);
     }break;
   }}if(dens>100 || dens<25){
-    std::cout<<"podana zla gestosc grafu"
+    std::cout<<"podana zla gestosc grafu";
     return -2;
   }
   if(size<10){
-      std::cout<<"podana zla wielkoscgrafu"
+      std::cout<<"podana zla wielkoscgrafu";
       return -3;
   }
   std::cout<<size<<std::endl;
