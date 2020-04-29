@@ -81,7 +81,7 @@ void graflist::prim()
                 parent[v] = u, key[v] = primarray[u][v];
     }
 
-    displayprim(parent);
+   // displayprim(parent);
 }
 
 int **graflist::primmatrixmake(){
