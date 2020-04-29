@@ -19,7 +19,14 @@ int main(int argc,char **argv){
       i++;
       sscanf(argv[i],"%f",&dens);
     }break;
-  }}
+  }}if(dens>100 || dens<25){
+    std::cout<<"podana zla gestosc grafu"
+    return -2;
+  }
+  if(size<10){
+      std::cout<<"podana zla wielkoscgrafu"
+      return -3;
+  }
   std::cout<<size<<std::endl;
   std::cout<<dens<<std::endl;
   edges=size*(size-1)*dens/200;
@@ -30,7 +37,7 @@ int main(int argc,char **argv){
     exx[i]=i;
     exy[i]=i+2;
   }
-  for(int i=0;i<1;i++){
+  for(int i=0;i<100;i++){
     file.open(std::to_string(i));
     file<<size<<"  "<<edges<<std::endl;
   	file<<"0"<<" "<<"1"<<" "<<rand()%1000<<std::endl;
