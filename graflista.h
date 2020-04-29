@@ -10,6 +10,7 @@
 #include <fstream>
 
 class graflist{
+	int *parent=new int[SIZE];
 	list **tab = new list*[SIZE];
 	int verticles, edges, maxsize=SIZE;
 	list *nood;
@@ -29,7 +30,69 @@ public:
 	void removevert(int vert);
 	void incidentedges(int vert);
 	void fileread(std::ifstream &file, int name);
+	void edgesort();
+	matlist kruskal();
+	int findset(int i);
 };
+
+
+matlist graflist::kruskal(){
+	int i, urep, vrep;
+	matlist temp;
+	int *helptab, *elem;
+
+	int *tablica=new int [verticles];
+	parent=tablica;
+
+	for (int i = 0; i < verticles; i++)
+	    parent[i] = i;
+	edgesort();
+	for (i = 0; i < edlist.size(); i++) {
+		helptab=endverticle(i);
+		urep=findset(helptab[0]);
+		vrep=findset(helptab[1]);
+		if (urep != vrep) {
+			elem=edlist.returnelem(i);
+			temp.insertback(elem[0], elem[1], elem[2]);
+			parent[urep] = parent[vrep];
+		}
+	}return temp;
+}
+
+int graflist::findset(int i){
+	 if (i == parent[i])
+	        return i;
+	 else
+		return findset(parent[i]);
+}
+
+
+void graflist::edgesort(){
+	matlist temp;
+	int big, place, *elem, check;
+	int used[edges/2];
+	for(int j=0; j<edges/2; j++){
+		big=999999999;
+		for(int i=0; i<edges/2; i++){
+			check=0;
+			if(edlist.returnvalue(i)<big){
+				for(int z=0; z<j+1; z++){
+					if(used[z]==i) check=1;
+				}
+				if(check==0){
+					big=edlist.returnvalue(i);
+					place = i;
+				}
+			}
+		}elem=edlist.returnelem(place);
+		temp.insertback(elem[0], elem[1], elem[2]);
+		used[j]=place;
+
+	}//for(int i=0; i<edges/2; i++)std::cout<<used[i]<<"  ";
+	edlist=temp;
+
+}
+
 
 void graflist::fileread(std::ifstream &file, int name){
 	int filesize=0, c;
@@ -65,6 +128,9 @@ void graflist::fileread(std::ifstream &file, int name){
 				}
 		for(int i=1; i<filesize/3+1; i++)
 			 edlist.insertback(inpt[i][0], inpt[i][1], inpt[i][2]);
+		for(int i=0; i<verticles;i++){
+			vlist.insertback(i,1);
+		}
 
 }
 
