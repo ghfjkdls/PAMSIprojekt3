@@ -12,7 +12,7 @@ int main(){
 	std::ifstream file;
 
 	for(int i=0;i<100;i++){
-		grafmacierz *graf=new graflist;
+		grafmacierz *graf=new grafmacierz;
 		matlist *list=new matlist;
 		graf->fileread(file, i);
 		graf->egdesort();
