@@ -29,7 +29,7 @@ int main(int argc,char **argv){
   }
   std::cout<<size<<std::endl;
   std::cout<<dens<<std::endl;
-  edges=size*(size-1)*dens/200;
+  edges=(size*(size-1)*dens/200)-1;
   std::cout<<edges<<std::endl;
   tabsize=size;
   int exx[edges], exy[edges];
