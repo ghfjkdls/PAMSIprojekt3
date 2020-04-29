@@ -13,6 +13,7 @@
 
 class grafmacierz{
 		int *parent=new int[SIZE];
+		int **primarray=new int*[SIZE];
 		int verticles=0, edges=0;
 		int **tab=new int*[SIZE];
 		int maxsize=SIZE;
@@ -35,8 +36,74 @@ public:
 		void fileread(std::ifstream &file, int name);
 		void edgesort();
 		matlist kruskal();
+		int **primmatrixmake();
 		int findset(int i);
+		int minKey(int key[], bool mstSet[]);
+		void displayprim(int parent[]);
+		void prim();
+
 };
+
+int grafmacierz::minKey(int key[], bool mstSet[])
+{
+    int min = 100000, min_index;
+
+    for (int v = 0; v < verticles; v++)
+        if (mstSet[v] == false && key[v] < min)
+            min = key[v], min_index = v;
+
+    return min_index;
+}
+
+void grafmacierz::displayprim(int parent[])
+{
+    std::cout<<"Edge \t\t\tWeight\n";
+    for (int i = 1; i < verticles; i++)
+        std::cout<<parent[i]<<" - "<<i<<" \t\t\t"<<primarray[i][parent[i]]
+															  <<std::endl;
+}
+
+
+void grafmacierz::prim()
+{	int big=1000;
+    int parent[big], key[big];
+
+    bool set[big];
+
+    for (int i = 0; i < big; i++)
+        key[i] = big, set[i] = false;
+
+    key[0] = 0;
+    parent[0] = -1;
+
+    for (int count = 0; count < big - 1; count++) {
+
+        int u = minKey(key, set);
+        set[u] = true;
+        for (int v = 0; v < big; v++)
+            if (primarray[u][v] && set[v] == false && primarray[u][v] < key[v])
+                parent[v] = u, key[v] = primarray[u][v];
+    }
+
+    displayprim(parent);
+}
+
+int **grafmacierz::primmatrixmake(){
+	int  *elem;
+	int **array= new int*[verticles];
+	primarray=array;
+	for(int i=0; i<verticles; i++)
+				primarray[i]= new int[verticles];
+	for(int i=0; i<verticles; i++)
+		for(int j=0; j<verticles; j++) primarray[i][j]=0;
+
+	for(int i=0; i<edges/2; i++){
+		elem=edlist.returnelem(i);
+		primarray[elem[0]][elem[1]]=elem[2];
+		primarray[elem[1]][elem[0]]=elem[2];
+	}
+	return primarray;
+}
 
 
 
