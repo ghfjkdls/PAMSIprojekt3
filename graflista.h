@@ -110,8 +110,8 @@ void graflist::fileread(std::ifstream &file, int name){
 			file>>inpt[i][j];
 		}
 	file.close();
-	std::cout<<inpt[0][0]<<"  "<<inpt[0][1]<<std::endl;
-	for(int i=1;i<filesize/3+1;i++) std::cout<<inpt[i][0]<<" "<<inpt[i][1]<<" "<<inpt[i][2]<<std::endl;
+	//std::cout<<inpt[0][0]<<"  "<<inpt[0][1]<<std::endl;
+	//for(int i=1;i<filesize/3+1;i++) std::cout<<inpt[i][0]<<" "<<inpt[i][1]<<" "<<inpt[i][2]<<std::endl;
 	verticles=inpt[0][0];
 	edges=2*inpt[0][1];
 	list **newtab = new list *[verticles];
