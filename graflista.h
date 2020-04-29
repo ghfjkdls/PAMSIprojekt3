@@ -7,6 +7,7 @@
 #include <iostream>
 #include "vertlist.h"
 #include "edgelist.h"
+#include <fstream>
 
 class graflist{
 	list **tab = new list*[SIZE];
@@ -27,8 +28,46 @@ public:
 	void removeedge(int edge);
 	void removevert(int vert);
 	void incidentedges(int vert);
-
+	void fileread(std::ifstream &file, int name);
 };
+
+void graflist::fileread(std::ifstream &file, int name){
+	int filesize=0, c;
+	file.open(std::to_string(name));
+	while(file>>c) filesize++;
+	file.close();
+	 //  std::cout<<filesize;
+
+	file.open(std::to_string(name));
+	int inpt [filesize][3];
+	file>>inpt[0][0];
+	file>>inpt[0][1];
+	for(int i=1;i<filesize/3+1;i++)
+		for(int j=0; j<3; j++) {
+			file>>inpt[i][j];
+		}
+	file.close();
+	std::cout<<inpt[0][0]<<"  "<<inpt[0][1]<<std::endl;
+	for(int i=1;i<filesize/3+1;i++) std::cout<<inpt[i][0]<<" "<<inpt[i][1]<<" "<<inpt[i][2]<<std::endl;
+	verticles=inpt[0][0];
+	edges=2*inpt[0][1];
+	list **newtab = new list *[verticles];
+		maxsize=verticles;
+		tab=newtab;
+		for(int i=0; i<verticles; i++) tab[i]=NULL;
+		for(int i=0; i<verticles; i++){
+			nood= new list;
+			tab[i]=nood;
+		}
+		for(int i=1; i<edges/2+1; i++){
+					tab[inpt[i][0]]->insertback(inpt[i][1]);
+					tab[inpt[i][1]]->insertback(inpt[i][0]);
+				}
+		for(int i=1; i<filesize/3+1; i++)
+			 edlist.insertback(inpt[i][0], inpt[i][1], inpt[i][2]);
+
+}
+
 
 
 void graflist::incidentedges(int vert){
