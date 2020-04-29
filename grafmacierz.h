@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <string>
 
 #include "edgelist.h"
 #include "vertlist.h"
@@ -29,7 +31,45 @@ public:
 		void removeedge(int edge);
 		void insertvert(int vert);
 		void insertedge(int vert1, int vert2, int value);
+		void fileread(std::ifstream &file, int name);
 };
+
+void grafmacierz::fileread(std::ifstream &file, int name){
+	int filesize=0, c;
+	file.open(std::to_string(name));
+	while(file>>c) filesize++;
+	file.close();
+	 //  std::cout<<filesize;
+
+	file.open(std::to_string(name));
+	int inpt [filesize][3];
+	file>>inpt[0][0];
+	file>>inpt[0][1];
+	for(int i=1;i<filesize/3+1;i++)
+		for(int j=0; j<3; j++) {
+			file>>inpt[i][j];
+		}
+	file.close();
+	std::cout<<inpt[0][0]<<"  "<<inpt[0][1]<<std::endl;
+	for(int i=1;i<filesize/3+1;i++) std::cout<<inpt[i][0]<<" "<<inpt[i][1]<<" "<<inpt[i][2]<<std::endl;
+	verticles=inpt[0][0];
+	edges=inpt[0][1];
+	int **newtab = new int*[verticles];
+		maxsize=verticles;
+		tab=newtab;
+		//tworzenie grafu
+		for(int i=0; i<verticles; i++)
+			tab[i]= new int[verticles];
+		for(int i=0; i<verticles; i++)
+			for(int j=1; j<verticles; j++)tab[i][j]=0;
+		for(int i=1; i<filesize/3+1; i++) {
+			tab[inpt[i][0]][inpt[i][1]]=1;
+			tab[inpt[i][1]][inpt[i][0]]=1;
+		}
+		for(int i=1; i<filesize/3+1; i++)
+			 edlist.insertback(inpt[i][0], inpt[i][1], inpt[i][2]);
+
+}
 
 void grafmacierz::insertedge(int vert1, int vert2, int value){
 	if(tab[vert1][vert2]==1){

@@ -37,12 +37,12 @@ int main(int argc,char **argv){
     exx[i]=i;
     exy[i]=i+2;
   }
-  for(int i=0;i<100;i++){
+  for(int i=0;i<1;i++){
     file.open(std::to_string(i));
     file<<size<<"  "<<edges<<std::endl;
   	file<<"0"<<" "<<"1"<<" "<<rand()%1000<<std::endl;
     counter++;
-    for(int i=1;i<size;i++){// tworzenie spojnych krawedzi w grafie
+    for(int i=1;i<size-1;i++){// tworzenie spojnych krawedzi w grafie
       file<<i-1<<" "<<i+1<<" "<<rand()%1000<<std::endl;
       counter++;
     }
