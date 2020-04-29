@@ -15,6 +15,7 @@ int main(){
 		graflist *graf=new graflist;
 		matlist *list=new matlist;
 		graf->fileread(file, i);
+		graf->edgesort();
 		start=clock();
 		*list=graf->kruskal();
 		stop=clock();
