@@ -12,19 +12,17 @@ int main(){
 	std::ifstream file;
 
 
-	for(int i=0;i<100;i++){
-		graflist *graf=new graflist;
-		matlist *list=new matlist;
-		graf->fileread(file, i);
-		graf->primmatrixmake();
-		start=clock();
-		graf->prim();
-		stop=clock();
-		time= double(stop-start)/double(CLOCKS_PER_SEC);
-		std::cout<<time<<std::endl;
-		delete graf;
-		delete list;
-	}
+	graflist *graf=new graflist;
+	matlist *list=new matlist;
+	graf->fileread(file, 0);
+	graf->primmatrixmake();
+	start=clock();
+	graf->prim();
+	stop=clock();
+	time= double(stop-start)/double(CLOCKS_PER_SEC);
+	std::cout<<time<<std::endl;
+	delete graf;
+	delete list;
 
 	return 0;
 }
